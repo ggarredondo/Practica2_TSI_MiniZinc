@@ -4,7 +4,7 @@ include "alldifferent.mzn"; % Se incluye una librería para poder hacer uso de l
 % Como dominio le asignamos el rango 0..9 para asegurarnos de que no se
 % incluyen números negativos ni números superiores a 9. Además, para las
 % letras S y T acortamos el intervalo a 1..9 para asegurarnos que no se
-% le asigna un cero, ya que debido a su posición en la cifra 0 no sería
+% le asigna un cero, ya que, debido a su posición en la cifra, 0 no sería
 % un valor válido.
 var 1..9: S;
 var 0..9: I;
