@@ -20,5 +20,5 @@ constraint sum(i in POS)(valorMonedas[i]*numMonedas[i]) == importe; % 2ª restri
 totalMonedas = sum(i in POS)(numMonedas[i]); % Se almacena el total de monedas como la suma de las cantidades de cada moneda.
 solve minimize totalMonedas; % Se resuelve minimizando el total de monedas.
 
-% Se imprime por pantalla los resultados formateados.
+% Se imprime por pantalla los resultados con formato.
 output ["monedas: \(numMonedas)\ntotal monedas: \(totalMonedas)"];
