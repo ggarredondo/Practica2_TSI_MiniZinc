@@ -16,7 +16,7 @@ var int: totalMonedas;
 int: importe = 799;
 
 constraint forall(i in POS)(numMonedas[i] >= 0); % 1ª restricción: el número de monedas es siempre mayor o igual a 0 (no tendría sentido tener cantidad negativas de monedas).
-constraint sum(i in POS)(valorMonedas[i]*numMonedas[i]) == importe; % 2ª restricción: la suma de cada n monedas por su valor es igual al importe.
+constraint sum(i in POS)(valorMonedas[i]*numMonedas[i]) == importe; % 2ª restricción: la sumatoria de cada n monedas por su valor es igual al importe.
 totalMonedas = sum(i in POS)(numMonedas[i]); % Se almacena el total de monedas como la suma de las cantidades de cada moneda.
 solve minimize totalMonedas; % Se resuelve minimizando el total de monedas.
 

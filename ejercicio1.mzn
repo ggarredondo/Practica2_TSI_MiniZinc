@@ -16,14 +16,14 @@ var 1..9: T;
 var 0..9: W;
 var 0..9: Y;
 
-constraint alldifferent([S,I,X,E,V,N,T,W,Y]); % 1ª restricción: todas las variables tienen valores únicos.
-% 2ª restricción: la suma de las variables, multiplicando por 10, 100, etc, según la variable esté en la
+constraint alldifferent([S,I,X,E,V,N,T,W,Y]); % 1ª restricción: todas las variables deben tener valores únicos.
+% 2ª restricción: SIX+SEVEN+SEVEN = TWENTY, multiplicando por 10, 100, etc, según la variable esté en la
 % posición de las decenas, centenas... 
 constraint                       100*S + 10*I + X
             + 10000*S + 1000*E + 100*V + 10*E + N
             + 10000*S + 1000*E + 100*V + 10*E + N
 == 100000*T + 10000*W + 1000*E + 100*N + 10*T + Y;
-solve satisfy;
+solve satisfy; % Se resuelve como problema de satisfacción.
 
 % Se imprimen por pantalla los resultados con formato.
 output ["       \(S) \(I) \(X)"];
