@@ -3,9 +3,11 @@ include "alldifferent.mzn"; % Se incluye una librería para poder hacer uso de l
 set of int: numProf = 1..4; % Prof1, Prof2, Prof3, Prof4
 set of int: numAulas = 1..3; % Aula1, Aula2, Aula3
 set of int: numHoras = 1..4; % 9 - 10, 10 - 11, 11 - 12, 12 -13
-set of int: numClases = 1..12; % Organizo las asignaturas y los grupos como un valor par, llamado clases.
+set of int: numClases = 1..12; % Organizo las asignaturas y los grupos como valores par, llamado clases.
+% Array de constantes de string de cada par grupo/asignatura en texto.
 array[numClases] of string: strClases = ["IA-G1","IA-G2","IA-G3","IA-G4","TSI-G1","TSI-G2","TSI-G3","TSI-G4","FBD-G1","FBD-G2","FBD-G3","FBD-G4"];
                                       %     1       2       3       4        5       6        7         8        9       10        11       12
+% Array de constantes de string del horario.
 array[numHoras] of string: strHoras = ["9-10","10-11","11-12","12-13"];
 
 % Para cada hora y cada aula, un profesor imparte una asignatura a un grupo (clase).
@@ -25,7 +27,12 @@ constraint alldifferent([Profs[4, j] | j in numAulas]);
 constraint alldifferent(Clases);
 
 % Cada grupo recibe docencia de una única asignatura en cada momento.
-
+% Para ello planteo una suma de booleanos de tres afirmaciones: para una misma fila, en una columna concreta se encuentra la clase de IA para un grupo concreto, en otra columna la clase de TSI,
+% y en otra la clase de FBD. La suma binaria de esas tres afirmaciones debe ser uno o menor, porque en caso contrario significa que un mismo grupo tiene dos clases que atender a la misma hora.
+constraint forall(i in numHoras, j in numAulas, k in numAulas, y in numAulas)((Clases[i,j]==1)+(Clases[i,k]==5)+(Clases[i,y]==9) <= 1); % Solo hay docencia de G1 en una misma fila.
+constraint forall(i in numHoras, j in numAulas, k in numAulas, y in numAulas)((Clases[i,j]==2)+(Clases[i,k]==6)+(Clases[i,y]==10) <= 1); % Solo hay docencia de G2 en una misma fila.
+constraint forall(i in numHoras, j in numAulas, k in numAulas, y in numAulas)((Clases[i,j]==3)+(Clases[i,k]==7)+(Clases[i,y]==11) <= 1); % Solo hay docencia de G3 en una misma fila.
+constraint forall(i in numHoras, j in numAulas, k in numAulas, y in numAulas)((Clases[i,j]==4)+(Clases[i,k]==8)+(Clases[i,y]==12) <= 1); % Solo hay docencia de G4 en una misma fila.
 
 % El profesor 2 solo puede dar clase en el aula 2.
 constraint forall(i in numHoras, j in numAulas where j != 2)(Profs[i,j] != 2);
