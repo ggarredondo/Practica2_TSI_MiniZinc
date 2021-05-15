@@ -24,6 +24,9 @@ constraint alldifferent([Profs[4, j] | j in numAulas]);
 % En la semana sólo se imparte una misma asignatura para un mismo grupo.
 constraint alldifferent(Clases);
 
+% Cada grupo recibe docencia de una única asignatura en cada momento.
+
+
 % El profesor 2 solo puede dar clase en el aula 2.
 constraint forall(i in numHoras, j in numAulas where j != 2)(Profs[i,j] != 2);
 % El profesor 4 solo puede dar clase en el aula 3.
