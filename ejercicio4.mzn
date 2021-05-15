@@ -15,7 +15,7 @@ set of int: numPersonas = 1..7; % Conjunto de las personas numéricamente.
 array[numPersonas] of string: strPersonas = ["Juan", "Maria", "Carmen", "Francisco", "Marta", "Olga", "Pepe"]; % Array de constantes string para los nombres de cada persona.
 % Array de variables booleanas para representar las afirmaciones de cada persona.
 array[numPersonas] of var bool: personas = [hoy == 2, hoy == 1, hoy == 3, hoy == 7, hoy == 4 \/ hoy == 5, hoy == 7, hoy != 7];
-% Se resuelve el problema como suma de booleanos. Suponiendo true = 1 y false = 0, la suma de todas las afirmaciones debe ser 1. Es decir, sólo una puede ser correcta.
+% Restricción principal como suma de booleanos. Suponiendo true = 1 y false = 0, la suma de todas las afirmaciones debe ser 1. Es decir, sólo una puede ser correcta.
 constraint personas[1] + personas[2] + personas[3] + personas[4] + personas[5] + personas[6] + personas[7] == 1;
 solve satisfy; % Se resuelve como problema de satisfacción.
 
