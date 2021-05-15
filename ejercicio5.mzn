@@ -40,6 +40,7 @@ constraint forall(i in numHoras, j in numAulas where j != 2)(Profs[i,j] != 2);
 % El profesor 4 solo puede dar clase en el aula 3.
 constraint forall(i in numHoras, j in numAulas where j != 3)(Profs[i,j] != 4);
 
+% Se imprime por pantalla el resultado con formato.
 output ["\(strHoras[i]) -> " ++ strClases[fix(Clases[i,1])] ++ "(P\(Profs[i,1])) " 
                              ++ strClases[fix(Clases[i,2])] ++ "(P\(Profs[i,2])) "
                              ++ strClases[fix(Clases[i,3])] ++ "(P\(Profs[i,3]))\n" | i in numHoras];
