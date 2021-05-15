@@ -39,6 +39,8 @@ constraint forall(j in numAulas)(Profs[3,j] != 2 /\ Profs[4,j] != 2);
 constraint forall(i in numHoras, j in numAulas where j != 2)(Profs[i,j] != 2);
 % El profesor 4 solo puede dar clase en el aula 3.
 constraint forall(i in numHoras, j in numAulas where j != 3)(Profs[i,j] != 4);
+% Las asignatura de TSI solo se puede dar en las Aulas 2 o 3.
+constraint forall(i in numHoras)(Clases[i,1] != 5 /\ Clases[i,1] != 6 /\ Clases[i,1] != 7 /\ Clases[i,1] != 8);
 
 % Se imprime por pantalla el resultado con formato.
 output ["            Aula 1    Aula 2      Aula 3\n"];
