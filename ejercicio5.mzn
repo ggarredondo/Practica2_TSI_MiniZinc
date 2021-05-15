@@ -24,27 +24,30 @@ constraint alldifferent([Profs[4, j] | j in numAulas]);
 % En la semana sólo se imparte una misma asignatura para un mismo grupo.
 constraint alldifferent(Clases);
 
-% El profesor 1 da clase de FBD a todos los grupos menos al G4 y de IA al G1.
-constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 9 \/ Clases[i,j] == 10 \/ Clases[i,j] == 11 \/ Clases[i,j] == 1)(Profs[i,j] == 1);
-% El profesor 2 da clase de IA al G2 y de FBD al G4.
-constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 2 \/ Clases[i,j] == 12)(Profs[i,j] == 2);
-% El profesor 3 da clase de IA al G3 y de TSI a todos los grupos menos al G3.
-constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 3 \/ Clases[i,j] == 5 \/ Clases[i,j] == 6 \/ Clases[i,j] == 8)(Profs[i,j] == 3);
-% El profesor 4 da clase de IA al G4 y de TSI al G3.
-constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 4 \/ Clases[i,j] == 7)(Profs[i,j] == 4);
-
-% El profesor 2 solo tiene disponibles las horas 9-10 y 10-11.
-constraint forall(j in numAulas)(Profs[3,j] != 2 /\ Profs[4,j] != 2);
 % El profesor 2 solo puede dar clase en el aula 2.
 constraint forall(i in numHoras, j in numAulas where j != 2)(Profs[i,j] != 2);
 % El profesor 4 solo puede dar clase en el aula 3.
 constraint forall(i in numHoras, j in numAulas where j != 3)(Profs[i,j] != 4);
 % Las asignatura de TSI solo se puede dar en las aulas 2 o 3.
 constraint forall(i in numHoras)(Clases[i,1] != 5 /\ Clases[i,1] != 6 /\ Clases[i,1] != 7 /\ Clases[i,1] != 8);
-% IA-G1 y IA-G3 deben ser de 9 a 10 y de 11 a 12.
-constraint forall(i in numHoras, j in numAulas where i != 1 /\ i != 3)(Clases[i,j] != 1 /\ Clases[i,j] != 3);
+% IA-G1 debe ser de 9 a 10.
+constraint forall(i in numHoras, j in numAulas where i != 1)(Clases[i,j] != 1);
+% IA-G3 debe ser de 11 a 12.
+constraint forall(i in numHoras, j in numAulas where i != 3)(Clases[i,j] != 3);
 % IA-G3 debe ser en el aula 1.
 constraint forall(i in numHoras, j in numAulas where j != 1)(Clases[i,j] != 3);
+
+% El profesor 1 da clase de FBD al G1, G2 y G3, y de IA al G1.
+constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 9 \/ Clases[i,j] == 10 \/ Clases[i,j] == 11 \/ Clases[i,j] == 1)(Profs[i,j] == 1);
+% El profesor 2 da clase de IA al G2 y de FBD al G4.
+constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 2 \/ Clases[i,j] == 12)(Profs[i,j] == 2);
+% El profesor 3 da clase de IA al G3 y de TSI al G1, G2 y G4.
+constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 3 \/ Clases[i,j] == 5 \/ Clases[i,j] == 6 \/ Clases[i,j] == 8)(Profs[i,j] == 3);
+% El profesor 4 da clase de IA al G4 y de TSI al G3.
+constraint forall(i in numHoras, j in numAulas where Clases[i,j] == 4 \/ Clases[i,j] == 7)(Profs[i,j] == 4);
+
+% El profesor 2 solo tiene disponibles las horas 9-10 y 10-11.
+constraint forall(j in numAulas)(Profs[3,j] != 2 /\ Profs[4,j] != 2);
 
 % Se imprime por pantalla el resultado con formato.
 output ["            Aula 1    Aula 2      Aula 3\n"];
