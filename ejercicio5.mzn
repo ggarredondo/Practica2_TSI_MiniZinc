@@ -15,13 +15,10 @@ array[numHoras, numAulas] of var numClases: Clases;
 array[numHoras, numAulas] of var numProf: Profs;
 
 % Un profesor solo puede dar clase en un aula para una misma hora.
-% Es necesario separarlo para que la restricción de 'alldifferent' se aplique
-% únicamente por fila, ya que un mismo profesor sí podría dar clase durante varias
-% horas.
-constraint alldifferent([Profs[1, j] | j in numAulas]);
-constraint alldifferent([Profs[2, j] | j in numAulas]);
-constraint alldifferent([Profs[3, j] | j in numAulas]);
-constraint alldifferent([Profs[4, j] | j in numAulas]);
+% Es necesario usar alldifferent dentro de un forall para que
+% la restricción se aplique solo por filas (que son las horas), no 
+% para la matriz entera.
+constraint forall(i in numHoras) (alldifferent([Profs[i,j] | j in numAulas]));
 
 % En la semana sólo se imparte una misma asignatura para un mismo grupo.
 constraint alldifferent(Clases);
